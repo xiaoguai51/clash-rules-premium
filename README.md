@@ -88,7 +88,7 @@
 
 提供 3 种预设完整配置模板，点击下方链接进入导入页面，选择模式后一键导入 Clash 客户端：
 
-**[→ 点击进入一键导入页面](https://xiaoguai51.github.io/shadowrocket-to-clash-rules/)**
+**[→ 点击进入一键导入页面](https://xiaoguai51.github.io/clash-rules-premium/)**
 
 | 模式 | 说明 | 需要节点 |
 |------|------|---------|
@@ -104,9 +104,9 @@
 
 | 模式 | GitHub Raw URL | jsDelivr CDN URL |
 |------|---------------|-----------------|
-| 黑名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-blacklist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/config/full-blacklist.yaml` |
-| 白名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-whitelist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/config/full-whitelist.yaml` |
-| 仅去广告 | `https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-adblock-only.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/config/full-adblock-only.yaml` |
+| 黑名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-blacklist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-blacklist.yaml` |
+| 白名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-whitelist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-whitelist.yaml` |
+| 仅去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-adblock-only.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-adblock-only.yaml` |
 
 ### 导入后如何添加代理节点
 
@@ -157,14 +157,14 @@ rule-providers:
   adblock-domain:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-domain.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/adblock-domain.yaml
     path: ./ruleset/adblock-domain.yaml
     interval: 604800  # 7 天（秒）
 
   adblock-ipcidr:
     type: http
     behavior: ipcidr
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-ipcidr.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/adblock-ipcidr.yaml
     path: ./ruleset/adblock-ipcidr.yaml
     interval: 604800
 
@@ -172,21 +172,21 @@ rule-providers:
   proxy-domain:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-domain.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-domain.yaml
     path: ./ruleset/proxy-domain.yaml
     interval: 604800
 
   proxy-classical:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-classical.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-classical.yaml
     path: ./ruleset/proxy-classical.yaml
     interval: 604800
 
   proxy-ipcidr:
     type: http
     behavior: ipcidr
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-ipcidr.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-ipcidr.yaml
     path: ./ruleset/proxy-ipcidr.yaml
     interval: 604800
 
@@ -194,20 +194,20 @@ rule-providers:
   direct-domain:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-domain.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/direct-domain.yaml
     path: ./ruleset/direct-domain.yaml
     interval: 604800
 
   direct-ipcidr:
     type: http
     behavior: ipcidr
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-ipcidr.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/direct-ipcidr.yaml
     path: ./ruleset/direct-ipcidr.yaml
     interval: 604800
 ```
 
 > 如果无法访问 `raw.githubusercontent.com`，可将 URL 中的域名替换为 `cdn.jsdelivr.net/gh`，例如：
-> `https://cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/rules/adblock-domain.yaml`
+> `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/rules/adblock-domain.yaml`
 >
 > 注意：jsDelivr 镜像内容更新会有约 12 小时延迟。
 

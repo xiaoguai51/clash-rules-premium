@@ -7,7 +7,7 @@
 # ┌─ 一键导入 ─────────────────────────────────────────────────────────┐
 # │  复制以下链接，在浏览器中打开即可一键导入 Clash 客户端：              │
 # │                                                                    │
-# │  clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-blacklist.yaml&name=Blacklist%2BADblock
+# │  clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fclash-rules-premium%2Fmain%2Fconfig%2Ffull-blacklist.yaml&name=Blacklist%2BADblock
 # └────────────────────────────────────────────────────────────────────┘
 #
 # 使用方式：
@@ -88,49 +88,49 @@ rule-providers:
   adblock-domain:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-domain.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/adblock-domain.yaml
     path: ./ruleset/adblock-domain.yaml
     interval: 86400
 
   adblock-ipcidr:
     type: http
     behavior: ipcidr
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-ipcidr.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/adblock-ipcidr.yaml
     path: ./ruleset/adblock-ipcidr.yaml
     interval: 86400
 
   proxy-domain:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-domain.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-domain.yaml
     path: ./ruleset/proxy-domain.yaml
     interval: 86400
 
   proxy-classical:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-classical.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-classical.yaml
     path: ./ruleset/proxy-classical.yaml
     interval: 86400
 
   proxy-ipcidr:
     type: http
     behavior: ipcidr
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-ipcidr.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-ipcidr.yaml
     path: ./ruleset/proxy-ipcidr.yaml
     interval: 86400
 
   direct-domain:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-domain.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/direct-domain.yaml
     path: ./ruleset/direct-domain.yaml
     interval: 86400
 
   direct-ipcidr:
     type: http
     behavior: ipcidr
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-ipcidr.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/direct-ipcidr.yaml
     path: ./ruleset/direct-ipcidr.yaml
     interval: 86400
 
