@@ -1,0 +1,78 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  仅去广告模式 — 完整 Clash 配置模板                                ║
+# ║  所有流量直连，仅拦截广告域名和 IP                                  ║
+# ║  适合：不需要代理、只想去广告的用户（开箱即用，无需添加节点）         ║
+# ╚══════════════════════════════════════════════════════════════════╝
+#
+# ┌─ 一键导入 ─────────────────────────────────────────────────────────┐
+# │  复制以下链接，在浏览器中打开即可一键导入 Clash 客户端：              │
+# │                                                                    │
+# │  clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-adblock-only.yaml&name=AdblockOnly
+# └────────────────────────────────────────────────────────────────────┘
+#
+# 使用方式：
+#   通过上方链接一键导入即可，无需添加代理节点，导入后直接生效。
+#
+# 规则集每周一北京时间 06:00 自动更新，无需手动干预。
+
+# ══════════════════════════════════════════
+# 基础设置
+# ══════════════════════════════════════════
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+# ══════════════════════════════════════════
+# DNS 设置
+# ══════════════════════════════════════════
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+# ══════════════════════════════════════════
+# 代理节点（此模式不需要代理节点）
+# ══════════════════════════════════════════
+proxies: []
+
+# ══════════════════════════════════════════
+# 规则集 (Rule Providers)
+# ══════════════════════════════════════════
+rule-providers:
+  adblock-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-domain.yaml
+    path: ./ruleset/adblock-domain.yaml
+    interval: 86400
+
+  adblock-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-ipcidr.yaml
+    path: ./ruleset/adblock-ipcidr.yaml
+    interval: 86400
+
+# ══════════════════════════════════════════
+# 规则 (Rules)
+# ══════════════════════════════════════════
+rules:
+  # ── 广告拦截 ──
+  - RULE-SET,adblock-domain,REJECT
+  - RULE-SET,adblock-ipcidr,REJECT,no-resolve
+
+  # ── 兜底：所有其他流量直连 ──
+  - MATCH,DIRECT

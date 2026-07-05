@@ -1,0 +1,156 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  白名单模式 + 去广告 — 完整 Clash 配置模板                         ║
+# ║  常见直连网站直连，其余境外走代理，同时拦截广告                       ║
+# ║  适合：服务器稳定、流量充足的用户                                     ║
+# ╚══════════════════════════════════════════════════════════════════╝
+#
+# ┌─ 一键导入 ─────────────────────────────────────────────────────────┐
+# │  复制以下链接，在浏览器中打开即可一键导入 Clash 客户端：              │
+# │                                                                    │
+# │  clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-whitelist.yaml&name=Whitelist%2BADblock
+# └────────────────────────────────────────────────────────────────────┘
+#
+# 使用方式：
+#   1. 通过上方链接一键导入，或手动下载此文件导入 Clash 客户端
+#   2. 在下方 proxies 段添加你的代理节点
+#   3. 在 proxy-groups 的 PROXY 组中引用你的节点名称
+#   4. 重新加载配置即可生效
+#
+# 规则集每周一北京时间 06:00 自动更新，无需手动干预。
+
+# ══════════════════════════════════════════
+# 基础设置
+# ══════════════════════════════════════════
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+# ══════════════════════════════════════════
+# DNS 设置
+# ══════════════════════════════════════════
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+# ══════════════════════════════════════════
+# 代理节点
+# ══════════════════════════════════════════
+# ↓↓↓ 在这里添加你的代理节点 ↓↓↓
+# 示例（取消注释并修改为你的节点信息）:
+#
+# - name: "MyProxy"
+#   type: ss
+#   server: example.com
+#   port: 443
+#   cipher: aes-256-gcm
+#   password: "your-password"
+#
+# ↑↑↑ 添加完成后，在下方 PROXY 组中引用节点名称 ↑↑↑
+
+proxies:
+  # 占位节点 — 导入后替换为你的真实节点
+  - name: "PLACEHOLDER"
+    type: socks5
+    server: 127.0.0.1
+    port: 1080
+
+# ══════════════════════════════════════════
+# 代理策略组
+# ══════════════════════════════════════════
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - PLACEHOLDER           # ← 替换为你的节点名称
+      - DIRECT
+      # - MyProxy            # ← 取消注释，改为你的节点名称
+
+# ══════════════════════════════════════════
+# 规则集 (Rule Providers)
+# ══════════════════════════════════════════
+rule-providers:
+  adblock-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-domain.yaml
+    path: ./ruleset/adblock-domain.yaml
+    interval: 86400
+
+  adblock-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-ipcidr.yaml
+    path: ./ruleset/adblock-ipcidr.yaml
+    interval: 86400
+
+  proxy-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-domain.yaml
+    path: ./ruleset/proxy-domain.yaml
+    interval: 86400
+
+  proxy-classical:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-classical.yaml
+    path: ./ruleset/proxy-classical.yaml
+    interval: 86400
+
+  proxy-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-ipcidr.yaml
+    path: ./ruleset/proxy-ipcidr.yaml
+    interval: 86400
+
+  direct-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-domain.yaml
+    path: ./ruleset/direct-domain.yaml
+    interval: 86400
+
+  direct-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-ipcidr.yaml
+    path: ./ruleset/direct-ipcidr.yaml
+    interval: 86400
+
+# ══════════════════════════════════════════
+# 规则 (Rules)
+# ══════════════════════════════════════════
+rules:
+  # ── 广告拦截 ──
+  - RULE-SET,adblock-domain,REJECT
+  - RULE-SET,adblock-ipcidr,REJECT,no-resolve
+
+  # ── 直连（国内域名/IP 优先匹配）──
+  - RULE-SET,direct-domain,DIRECT
+  - RULE-SET,direct-ipcidr,DIRECT,no-resolve
+
+  # ── 中国 IP 直连 ──
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # ── 代理（其余境外走代理）──
+  - RULE-SET,proxy-domain,PROXY
+  - RULE-SET,proxy-classical,PROXY
+  - RULE-SET,proxy-ipcidr,PROXY,no-resolve
+
+  # ── 兜底：未命中的流量走代理 ──
+  - MATCH,PROXY

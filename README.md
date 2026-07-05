@@ -32,7 +32,70 @@
 
 ---
 
-## 使用方法
+## 快速开始
+
+### 方式一：一键导入（推荐）
+
+提供 3 种预设完整配置模板，点击链接即可一键导入 Clash 客户端（支持 Clash for Windows、Clash Verge 等）：
+
+| 模式 | 说明 | 一键导入链接 |
+|------|------|-------------|
+| 黑名单 + 去广告 | 被墙网站走代理，其余直连，同时去广告 | [点击导入](clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-blacklist.yaml&name=Blacklist%2BADblock) |
+| 白名单 + 去广告 | 常见直连网站直连，其余境外走代理，同时去广告 | [点击导入](clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-whitelist.yaml&name=Whitelist%2BADblock) |
+| 仅去广告 | 所有流量直连，仅拦截广告（**无需节点，导入即用**） | [点击导入](clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-adblock-only.yaml&name=AdblockOnly) |
+
+> 如果 `raw.githubusercontent.com` 无法访问，可将链接中的 URL 域名替换为 jsDelivr CDN：
+> - `raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/` → `cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/`
+> - jsDelivr 有约 12 小时缓存延迟
+
+### 方式二：手动 URL 导入
+
+在 Clash 客户端的"订阅 / 配置下载"中粘贴以下 URL：
+
+| 模式 | GitHub Raw URL | jsDelivr CDN URL |
+|------|---------------|-----------------|
+| 黑名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-blacklist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/config/full-blacklist.yaml` |
+| 白名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-whitelist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/config/full-whitelist.yaml` |
+| 仅去广告 | `https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-adblock-only.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/config/full-adblock-only.yaml` |
+
+### 导入后如何添加代理节点
+
+> **仅去广告模式**：导入即用，无需以下操作。
+
+> **黑名单 / 白名单模式**：导入后需添加代理节点才能使用代理功能。
+
+1. 打开导入的配置文件（或在 Clash 客户端的配置编辑器中打开）
+2. 找到 `proxies` 段，添加你的代理节点：
+
+```yaml
+proxies:
+  # 删除占位节点 PLACEHOLDER，替换为你的真实节点
+  - name: "MyProxy"
+    type: ss                    # 支持 ss / vmess / trojan / socks5 等
+    server: your-server.com
+    port: 443
+    cipher: aes-256-gcm
+    password: "your-password"
+```
+
+3. 在 `proxy-groups` 的 `PROXY` 组中引用你的节点名称：
+
+```yaml
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - MyProxy                 # ← 改为你的节点名称
+      - DIRECT                  # ← 保留，不想代理时可选
+```
+
+4. 重新加载配置，在 Clash 客户端的代理组中选择你的节点即可
+
+---
+
+## 手动配置（高级用户）
+
+如果已有自己的 Clash 配置文件，只需引入本项目的规则集（rule-providers），无需使用完整配置模板。
 
 ### 1. 配置 rule-providers
 
