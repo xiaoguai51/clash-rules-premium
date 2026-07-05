@@ -22,11 +22,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
-        run: pip3 install -r scripts/requirements.txt || true
+      - name: Build rule sets from upstream sources
+        run: python3 scripts/build.py --output-dir rules
 
-      - name: Run converter
-        run: python3 scripts/convert.py --output-dir rules
+      - name: Run tests
+        run: python3 scripts/test_rules.py --rules-dir rules
 
       - name: Check for changes
         id: changes

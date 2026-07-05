@@ -1,6 +1,8 @@
 # Shadowrocket ADBlock Rules → Clash Premium Rule Sets
 
-将 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目的规则转换为 **Clash Premium** 内核兼容的规则集（RULE-SET），适用于所有基于 Clash Premium / mihomo 内核的 GUI 客户端。
+将多个开源广告拦截和代理规则数据源转换为 **Clash Premium** 内核兼容的规则集（RULE-SET），适用于所有基于 Clash Premium / mihomo 内核的 GUI 客户端。
+
+本项目从原始数据源（EasyList、乘风规则、GFWList 等）直接构建 Clash 规则集，跳过中间格式转换，零格式损耗。同时保留 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目手动维护的中国 APP 广告拦截规则。
 
 使用 GitHub Actions **每周一北京时间 06:00** 自动拉取最新数据源并更新规则集。
 
@@ -10,14 +12,16 @@
 
 | 规则集文件 | behavior | 条目数 | 说明 |
 |-----------|----------|--------|------|
-| `adblock-domain` | `domain` | ~53,800 | 广告拦截域名列表（DOMAIN-SUFFIX） |
-| `adblock-ipcidr` | `ipcidr` | ~128 | 广告拦截 IP 段列表（IP-CIDR） |
-| `proxy` | `classical` | ~30,700 | 代理域名列表（含 DOMAIN-KEYWORD） |
-| `proxy-ipcidr` | `ipcidr` | ~25 | 代理 IP 段列表 |
-| `direct-domain` | `domain` | ~378 | 直连域名列表 |
-| `direct-ipcidr` | `ipcidr` | ~7 | 直连 IP 段列表 |
+| `adblock-domain` | `domain` | ~54,200 | 广告拦截域名列表 |
+| `adblock-ipcidr` | `ipcidr` | ~131 | 广告拦截 IP 段列表 |
+| `proxy-domain` | `domain` | ~4,660 | 代理域名列表 |
+| `proxy-classical` | `classical` | 0 | 代理关键字列表（当前为空） |
+| `proxy-ipcidr` | `ipcidr` | ~17 | 代理 IP 段列表 |
+| `direct-domain` | `domain` | ~101 | 直连域名列表 |
+| `direct-ipcidr` | `ipcidr` | 0 | 直连 IP 段列表（当前为空） |
 
 > 条目数随上游数据源更新而变化，以上为参考值。
+> `proxy-classical` 和 `direct-ipcidr` 当前为空文件，配置后不会影响功能，保留是为了未来扩展。
 
 每种规则集同时提供 `.yaml` 和 `.txt` 两种格式：
 
@@ -52,11 +56,18 @@ rule-providers:
     interval: 604800
 
   # 代理规则
-  proxy:
+  proxy-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-domain.yaml
+    path: ./ruleset/proxy-domain.yaml
+    interval: 604800
+
+  proxy-classical:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy.yaml
-    path: ./ruleset/proxy.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-classical.yaml
+    path: ./ruleset/proxy-classical.yaml
     interval: 604800
 
   proxy-ipcidr:
@@ -102,7 +113,8 @@ rules:
   - RULE-SET,adblock-ipcidr,REJECT,no-resolve
 
   # 代理
-  - RULE-SET,proxy,PROXY
+  - RULE-SET,proxy-domain,PROXY
+  - RULE-SET,proxy-classical,PROXY
   - RULE-SET,proxy-ipcidr,PROXY,no-resolve
 
   # 直连
@@ -134,7 +146,8 @@ rules:
   - GEOIP,CN,DIRECT,no-resolve
 
   # 代理
-  - RULE-SET,proxy,PROXY
+  - RULE-SET,proxy-domain,PROXY
+  - RULE-SET,proxy-classical,PROXY
   - RULE-SET,proxy-ipcidr,PROXY,no-resolve
 
   # 兜底
@@ -164,43 +177,67 @@ IP-CIDR 类型的规则集建议在 `rules` 段添加 `,no-resolve` 后缀，避
 
 ## 数据来源
 
-本项目的规则集由以下上游项目的数据转换而来：
+本项目从以下原始数据源直接构建 Clash 规则集，不依赖中间格式转换。
 
-### 原始规则项目
+### 广告拦截规则（Adblock Plus 格式）
 
-- [Johnshall/Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) — 提供 Shadowrocket 格式的规则文件
+| 数据源 | URL | 说明 |
+|--------|-----|------|
+| [EasyList China](https://easylist.to/) | `easylist-downloads.adblockplus.org/easylistchina.txt` | 中国区广告过滤 |
+| [EasyList+China](https://easylist.to/) | `easylist-downloads.adblockplus.org/easylistchina+easylist.txt` | 国际+中国广告 |
+| [乘风广告过滤规则](https://github.com/xinggsf/Adblock-Plus-Rule) | `raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/master/rule.txt` | 中文广告过滤 |
+| [Peter Lowe](https://pgl.yoyo.org/) | `pgl.yoyo.org/adservers/serverlist.php` | 广告和隐私跟踪域名 |
 
-### Shadowrocket 项目的数据源
+### 代理规则（GFWList）
 
-| 类别 | 数据源 |
-|------|--------|
-| 分流基础 | GFWList、Greatfire Analyzer、Apple CDN 域名、全球 Top500 网站 |
-| 广告拦截 | EasyList、EasyList China、Peter Lowe 隐私跟踪域名、乘风规则 |
-| 懒人配置 | LOWERTOP/Shadowrocket、blackmatrix7/ios_rule_script |
+| 数据源 | URL | 格式 | 说明 |
+|--------|-----|------|------|
+| [GFWList](https://github.com/gfwlist/gfwlist) | `raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt` | base64 | 被墙网站列表 |
+| [cn-blocked-domain](https://github.com/Johnshall/cn-blocked-domain) | `raw.githubusercontent.com/Johnshall/cn-blocked-domain/release/domains.txt` | 纯域名 | GFWList 补充 |
 
-### 转换说明
+### 手动维护规则（来自 Shadowrocket 项目社区）
 
-| Shadowrocket 文件 | 转换为 | 提取策略 |
-|-------------------|--------|---------|
-| `sr_ad_only.conf` | `adblock-domain` + `adblock-ipcidr` | Reject 规则 |
-| `sr_top500_banlist.conf` | `proxy` + `proxy-ipcidr` | Proxy 规则 |
-| `sr_top500_whitelist.conf` | `direct-domain` + `direct-ipcidr` | Direct 规则 |
+以下文件由 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目社区手动维护，包含大量中国 APP 广告拦截规则（优酷、百度、爱奇艺、微博等），是本项目的核心数据之一。
 
-转换过程中的处理：
+| 文件 | 用途 |
+|------|------|
+| `manual_reject.txt` | 手动维护的广告拦截域名/IP |
+| `manual_proxy.txt` | 手动维护的代理域名/IP |
+| `manual_direct.txt` | 手动维护的直连域名/IP |
+| `manual_gfwlist.txt` | GFWList 补充规则 |
+| `manual_gfwlist_excludes.txt` | GFWList 误杀排除列表 |
 
-1. **按策略拆分**：Shadowrocket 规则行包含策略（`Reject`/`Proxy`/`Direct`），Clash 规则集不包含策略。按策略拆分为独立规则集。
-2. **按类型拆分**：`DOMAIN-SUFFIX`/`DOMAIN` → `domain` behavior；`IP-CIDR` → `ipcidr` behavior；`DOMAIN-KEYWORD` → `classical` behavior。
-3. **去重排序**：所有规则集按字母排序并去重。
-4. **过滤不兼容类型**：`URL-REGEX` 等 Clash 不支持的规则类型被过滤。
-5. **忽略 FINAL 规则**：`FINAL,Proxy` 等兜底规则不转换，由用户在 `rules` 段用 `MATCH` 实现。
+### 构建流程
+
+```
+原始数据源 → ad_extractor.py / gfw_parser.py → 纯域名/IP 列表 → clash_builder.py → Clash 规则集
+```
+
+1. `ad_extractor.py`：下载 4 个 Adblock Plus 格式广告规则源，解析提取纯域名和 IP
+2. `gfw_parser.py`：下载并解码 GFWList（base64），解析提取纯域名
+3. `clash_builder.py`：读取所有中间产物 + 手动维护文件，按策略和类型分类，生成 Clash 规则集
+4. `build.py`：协调以上脚本的执行顺序
+
+### 规则集分类逻辑
+
+| 来源 | 策略 | 类型 | 输出文件 | behavior |
+|------|------|------|---------|----------|
+| 广告域名源 + manual_reject 域名 | REJECT | domain | `adblock-domain` | domain |
+| 广告 IP 源 + manual_reject IP | REJECT | ipcidr | `adblock-ipcidr` | ipcidr |
+| GFWList + manual_gfwlist + manual_proxy 域名 | PROXY | domain | `proxy-domain` | domain |
+| manual_proxy 中的 KEYWORD 规则 | PROXY | classical | `proxy-classical` | classical |
+| manual_proxy 中的 IP/CIDR | PROXY | ipcidr | `proxy-ipcidr` | ipcidr |
+| manual_direct 域名 | DIRECT | domain | `direct-domain` | domain |
+| manual_direct IP/CIDR | DIRECT | ipcidr | `direct-ipcidr` | ipcidr |
 
 ---
 
 ## 更新机制
 
 - **更新频率**：每周一北京时间 06:00 自动更新
-- **更新方式**：GitHub Actions 自动拉取 Shadowrocket 项目最新规则文件，运行转换脚本，提交到 `main` 分支
-- **上游更新频率**：Shadowrocket 项目每日北京时间 08:00 更新，本项目每周同步一次
+- **更新方式**：GitHub Actions 自动从原始数据源（EasyList、GFWList 等）下载最新规则，运行构建脚本，提交到 `main` 分支
+- **构建流程**：`ad_extractor.py` → `gfw_parser.py` → `clash_builder.py`，零格式损耗
+- **数据源更新频率**：EasyList 和 GFWList 每日更新，本项目每周同步一次
 
 ### 手动触发更新
 
@@ -234,4 +271,4 @@ IP-CIDR 类型的规则集建议在 `rules` 段添加 `,no-resolve` 后缀，避
 
 [MIT License](LICENSE)
 
-本项目仅用于学习和研究目的。规则数据版权归各自上游项目所有。
+本项目仅用于学习和研究目的。感谢以下开源社区项目提供的数据源支持。

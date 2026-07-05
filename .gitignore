@@ -22,6 +22,7 @@ Thumbs.db
 *.tmp
 *.bak
 *.log
+tmp/
 
 # WorkBuddy
 .workbuddy/

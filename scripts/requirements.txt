@@ -1,3 +1,0 @@
-# Shadowrocket → Clash Premium 规则集转换脚本依赖
-# 脚本仅使用 Python 标准库，无外部依赖
-# 此文件保留用于未来扩展

@@ -20,11 +20,18 @@ rule-providers:
     path: ./ruleset/adblock-ipcidr.yaml
     interval: 604800
 
-  proxy:
+  proxy-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-domain.yaml
+    path: ./ruleset/proxy-domain.yaml
+    interval: 604800
+
+  proxy-classical:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy.yaml
-    path: ./ruleset/proxy.yaml
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-classical.yaml
+    path: ./ruleset/proxy-classical.yaml
     interval: 604800
 
   proxy-ipcidr:
@@ -54,7 +61,8 @@ rules:
   - RULE-SET,adblock-ipcidr,REJECT,no-resolve
 
   # 代理
-  - RULE-SET,proxy,PROXY
+  - RULE-SET,proxy-domain,PROXY
+  - RULE-SET,proxy-classical,PROXY
   - RULE-SET,proxy-ipcidr,PROXY,no-resolve
 
   # 直连
