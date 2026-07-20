@@ -19,7 +19,7 @@
 从多个开源广告拦截和代理规则数据源（EasyList、乘风规则、GFWList 等）直接构建，跳过中间格式转换，零格式损耗。同时保留 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目手动维护的中国 APP 广告拦截规则。
 
 - **7 组规则集** — 广告拦截 / 代理 / 直连，`.yaml` + `.txt` 双格式
-- **3 种一键配置模板** — 黑名单 / 白名单 / 仅去广告，一键导入即用
+- **5 种一键配置模板** — 黑名单 / 白名单 / 仅去广告 / 黑名单·不去广告 / 白名单·不去广告，一键导入即用
 - **每周自动更新** — GitHub Actions 每周一北京时间 06:00 拉取最新数据源
 - **零依赖构建** — 纯 Python 标准库，无第三方包
 
@@ -86,7 +86,7 @@
 
 ### 方式一：一键导入（推荐）
 
-提供 3 种预设完整配置模板，点击下方链接进入导入页面，选择模式后一键导入 Clash 客户端：
+提供 5 种预设完整配置模板，点击下方链接进入导入页面，选择模式后一键导入 Clash 客户端：
 
 **[→ 点击进入一键导入页面](https://xiaoguai51.github.io/clash-rules-premium/)**
 
@@ -95,6 +95,8 @@
 | 黑名单 + 去广告 | 被墙网站走代理，其余直连，同时去广告 | 是（导入后添加） |
 | 白名单 + 去广告 | 常见直连网站直连，其余境外走代理，同时去广告 | 是（导入后添加） |
 | 仅去广告 | 所有流量直连，仅拦截广告 | **否（导入即用）** |
+| 黑名单 · 不去广告 | 被墙网站走代理，其余直连，但不拦截广告 | 是（导入后添加） |
+| 白名单 · 不去广告 | 常见直连网站直连，其余境外走代理，但不拦截广告 | 是（导入后添加） |
 
 > 如果一键导入没有反应，可在导入页面点击「复制链接」，在 Clash 客户端的「订阅 / 配置下载」中手动粘贴。
 
@@ -107,6 +109,8 @@
 | 黑名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-blacklist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-blacklist.yaml` |
 | 白名单 + 去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-whitelist.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-whitelist.yaml` |
 | 仅去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-adblock-only.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-adblock-only.yaml` |
+| 黑名单 · 不去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-blacklist-no-adblock.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-blacklist-no-adblock.yaml` |
+| 白名单 · 不去广告 | `https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-whitelist-no-adblock.yaml` | `https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-whitelist-no-adblock.yaml` |
 
 ### 导入后如何添加代理节点
 
@@ -280,6 +284,50 @@ rules:
   # ... 你的其他规则 ...
 
   - MATCH,PROXY  # 或 MATCH,DIRECT
+```
+
+#### 黑名单模式 · 不去广告
+
+与黑名单模式分流完全一致，仅省略广告拦截规则。适合想保留广告、只做分流的用户。
+
+```yaml
+rules:
+  # 代理
+  - RULE-SET,proxy-domain,PROXY
+  - RULE-SET,proxy-classical,PROXY
+  - RULE-SET,proxy-ipcidr,PROXY,no-resolve
+
+  # 直连
+  - RULE-SET,direct-domain,DIRECT
+  - RULE-SET,direct-ipcidr,DIRECT,no-resolve
+
+  # 中国 IP 直连
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # 兜底
+  - MATCH,DIRECT
+```
+
+#### 白名单模式 · 不去广告
+
+与白名单模式分流完全一致，仅省略广告拦截规则。适合想保留广告、只做分流的用户。
+
+```yaml
+rules:
+  # 直连
+  - RULE-SET,direct-domain,DIRECT
+  - RULE-SET,direct-ipcidr,DIRECT,no-resolve
+
+  # 中国 IP 直连
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # 代理
+  - RULE-SET,proxy-domain,PROXY
+  - RULE-SET,proxy-classical,PROXY
+  - RULE-SET,proxy-ipcidr,PROXY,no-resolve
+
+  # 兜底
+  - MATCH,PROXY
 ```
 
 ### 3. 关于 no-resolve

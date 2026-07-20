@@ -1,0 +1,59 @@
+# 黑名单模式配置示例 · 不去广告
+# 仅命中的流量走代理，其余直连。适合服务器质量一般、流量紧缺的用户。
+# 与黑名单模式一致，但不加载广告拦截规则集（不去广告）。
+#
+# 使用前请确保：
+# 1. 在 proxies 或 proxy-groups 中定义名为 PROXY 的代理组
+# 2. 根据实际需求调整规则顺序
+
+rule-providers:
+  proxy-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-domain.yaml
+    path: ./ruleset/proxy-domain.yaml
+    interval: 604800
+
+  proxy-classical:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-classical.yaml
+    path: ./ruleset/proxy-classical.yaml
+    interval: 604800
+
+  proxy-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/proxy-ipcidr.yaml
+    path: ./ruleset/proxy-ipcidr.yaml
+    interval: 604800
+
+  direct-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/direct-domain.yaml
+    path: ./ruleset/direct-domain.yaml
+    interval: 604800
+
+  direct-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/direct-ipcidr.yaml
+    path: ./ruleset/direct-ipcidr.yaml
+    interval: 604800
+
+rules:
+  # 代理
+  - RULE-SET,proxy-domain,PROXY
+  - RULE-SET,proxy-classical,PROXY
+  - RULE-SET,proxy-ipcidr,PROXY,no-resolve
+
+  # 直连
+  - RULE-SET,direct-domain,DIRECT
+  - RULE-SET,direct-ipcidr,DIRECT,no-resolve
+
+  # 中国 IP 直连
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # 兜底：未命中的流量直连
+  - MATCH,DIRECT

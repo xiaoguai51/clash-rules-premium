@@ -1,20 +1,20 @@
 # ╔══════════════════════════════════════════════════════════════════╗
-# ║  黑名单模式 + 去广告 — 完整 Clash 配置模板                         ║
-# ║  被墙网站走代理，其余直连，同时拦截广告                              ║
-# ║  适合：服务器质量一般、流量紧缺的用户                                 ║
+# ║  黑名单模式 · 不去广告 — 完整 Clash 配置模板                         ║
+# ║  被墙网站走代理，其余直连（不拦截广告）                              ║
+# ║  适合：服务器质量一般、流量紧缺，但不想屏蔽广告的用户                 ║
 # ╚══════════════════════════════════════════════════════════════════╝
 #
 # ┌─ 一键导入 ─────────────────────────────────────────────────────────┐
 # │  复制以下链接，在浏览器中打开即可一键导入 Clash 客户端：              │
 # │                                                                    │
-# │  clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fclash-rules-premium%2Fmain%2Fconfig%2Ffull-blacklist.yaml&name=Blacklist%2BADblock
+# │  clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fclash-rules-premium%2Fmain%2Fconfig%2Ffull-blacklist-no-adblock.yaml&name=Blacklist%2BNoAD
 # └────────────────────────────────────────────────────────────────────┘
 #
 # ┌─ 手动导入 ─────────────────────────────────────────────────────────┐
 # │  若一键导入无反应，在 Clash 客户端「订阅 / 配置下载」中粘贴以下 URL：   │
 # │                                                                    │
-# │  Raw: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-blacklist.yaml
-# │  CDN: https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-blacklist.yaml
+# │  Raw: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-blacklist-no-adblock.yaml
+# │  CDN: https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-blacklist-no-adblock.yaml
 # └────────────────────────────────────────────────────────────────────┘
 #
 # 使用方式：
@@ -25,9 +25,9 @@
 #
 # 规则集每周一北京时间 06:00 自动更新，无需手动干预。
 
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # 基础设置
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 port: 7890                    # HTTP 代理端口
 socks-port: 7891              # SOCKS5 代理端口
 allow-lan: false              # 是否允许局域网连接
@@ -35,9 +35,9 @@ mode: rule                    # 规则模式
 log-level: info               # 日志级别: info / warning / error / debug / silent
 external-controller: 127.0.0.1:9090  # RESTful API 控制端口
 
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # DNS 设置
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 dns:
   enable: true
   listen: 0.0.0.0:53
@@ -53,9 +53,9 @@ dns:
     geoip: true
     geoip-code: CN
 
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # 代理节点
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # ↓↓↓ 在这里添加你的代理节点 ↓↓↓
 # 示例（取消注释并修改为你的节点信息）:
 #
@@ -76,9 +76,9 @@ proxies:
     server: 127.0.0.1
     port: 1080
 
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # 代理策略组
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 proxy-groups:
   - name: PROXY
     type: select              # 手动选择模式
@@ -87,25 +87,11 @@ proxy-groups:
       - DIRECT                # ← 不想代理时选 DIRECT
       # - MyProxy            # ← 取消注释，改为你的节点名称
 
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # 规则集 (Rule Providers)
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # 数据源每周一自动更新，此处 interval 设为 86400 秒（24 小时）自动拉取
 rule-providers:
-  adblock-domain:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/adblock-domain.yaml
-    path: ./ruleset/adblock-domain.yaml
-    interval: 86400
-
-  adblock-ipcidr:
-    type: http
-    behavior: ipcidr
-    url: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/rules/adblock-ipcidr.yaml
-    path: ./ruleset/adblock-ipcidr.yaml
-    interval: 86400
-
   proxy-domain:
     type: http
     behavior: domain
@@ -141,14 +127,10 @@ rule-providers:
     path: ./ruleset/direct-ipcidr.yaml
     interval: 86400
 
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 # 规则 (Rules)
-# ══════════════════════════════════════════
+# ════════════════════════════════════════════
 rules:
-  # ── 广告拦截 ──
-  - RULE-SET,adblock-domain,REJECT
-  - RULE-SET,adblock-ipcidr,REJECT,no-resolve
-
   # ── 代理（被墙的走代理）──
   - RULE-SET,proxy-domain,PROXY
   - RULE-SET,proxy-classical,PROXY
