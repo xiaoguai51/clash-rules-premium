@@ -10,6 +10,13 @@
 # │  clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fclash-rules-premium%2Fmain%2Fconfig%2Ffull-whitelist-no-adblock.yaml&name=Whitelist%2BNoAD
 # └────────────────────────────────────────────────────────────────────┘
 #
+# ┌─ 手动导入 ─────────────────────────────────────────────────────────┐
+# │  若一键导入无反应，在 Clash 客户端「订阅 / 配置下载」中粘贴以下 URL：   │
+# │                                                                    │
+# │  Raw: https://raw.githubusercontent.com/xiaoguai51/clash-rules-premium/main/config/full-whitelist-no-adblock.yaml
+# │  CDN: https://cdn.jsdelivr.net/gh/xiaoguai51/clash-rules-premium@main/config/full-whitelist-no-adblock.yaml
+# └────────────────────────────────────────────────────────────────────┘
+#
 # 使用方式：
 #   1. 通过上方链接一键导入，或手动下载此文件导入 Clash 客户端
 #   2. 在下方 proxies 段添加你的代理节点
