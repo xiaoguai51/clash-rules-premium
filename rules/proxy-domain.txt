@@ -4353,6 +4353,7 @@ c-spanvideo.org
 c.3mon.xyz
 c.box3.bid
 c.dvd99.xyz
+c.go-mpulse.net
 c.holmesmind.com
 c.htcc.us
 c.mi.com
@@ -18300,6 +18301,7 @@ qm9.lomn.fun
 qmp4.com
 qmus.me
 qmusic.me
+qobuz.com
 qoco.it
 qoo-app.com
 qoos.com
