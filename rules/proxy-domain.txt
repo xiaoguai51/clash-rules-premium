@@ -1809,6 +1809,7 @@ ai.studio
 ai2.appinventor.mit.edu
 aiailah.com
 aichatting.net
+aidc.com.tw
 aiddata.org
 aidol.asia
 aierport.com
@@ -3841,6 +3842,7 @@ bls.gov
 blt.com.cn
 bltechz2.pro
 blubrry.com
+blue-plus.net
 blue9.com.au
 bluecloud.pw
 bluecross.tw
@@ -5691,6 +5693,7 @@ cp52-4.trixbox.com
 cp98.com
 cp999.com
 cpac.conservative.org
+cpc.com.tw
 cphi.com
 cpj.org
 cpk02.com
@@ -5797,6 +5800,7 @@ cs91.wac.edgecastcdn.net
 cs9666.com
 cs9777.com
 cs987.com
+csc.com.tw
 cscot.pages.dev
 csdc111.com
 csdc1111.com
@@ -6796,6 +6800,7 @@ dgshinbo.com
 dgxgplhuggitv.cloudfront.net
 dgylgb.wvnyr.vizvaz.com
 dgyqr055mfays.cloudfront.net
+dh.net
 dh2jkfaxlrbf5.cloudfront.net
 dh8.pr23.eu.org
 dharamsalanet.com
@@ -8060,6 +8065,7 @@ exchristian.hk
 exclusiveclub.com
 exhentai.org
 exigo-capital.com
+eximbank.com.tw
 exmarkets.asia
 exmo.com
 exmo.me
@@ -10701,6 +10707,7 @@ hanime.tv
 hanime.xxx
 hanime1.com
 hanime1.me
+hanimeone.me
 hanjubo.com
 hanjutv.com
 hanknetwork.com
@@ -11675,6 +11682,7 @@ ic.etowns.net
 ic.slyip.net
 icams.com
 icc-cricket.com
+icdf.org.tw
 ice-gay.com
 ice.io
 iceblaze.com
@@ -12154,6 +12162,7 @@ ip.pwnz.org
 ip5006.co
 ip5008.com
 ip6855.com
+ipac.global
 ipaynow.com
 ipburger.com
 ipchanging.com
@@ -12491,6 +12500,7 @@ javbangers.com
 javbus.com
 javbus2.com
 javbus2.pw
+javchu.com
 javcl.com
 javcloud.com
 javdatabase.com
@@ -13122,6 +13132,7 @@ khaskhabar.com
 khatrimaza.org
 khb-tv.co.jp
 khbrah.herokuapp.com
+khc.edu.tw
 khilafah.com
 khilafah.net
 khilafah.nl
@@ -13460,6 +13471,7 @@ lamayeshe.com
 lamnia.co.uk
 lamrim.com
 land-fx.com
+landbank.com.tw
 landofhope.tv
 landofjoy.co.uk
 landofmedicinebuddha.org
@@ -14967,6 +14979,7 @@ miohentai.com
 miracolo.ro
 miraheze.org
 mirai.mamoe.net
+mirdc.org.tw
 miriama.net
 miroguide.com
 mirror.chromaso.net
@@ -14984,6 +14997,7 @@ miss148.com
 missav.ai
 missav.app
 missav.com
+missav.live
 missav.ws
 missav01.com
 missav123.com
@@ -15748,6 +15762,7 @@ ne.4u.pass.fm
 ne1.wpc.edgecastcdn.net
 near.org
 nebraskacoeds.com
+ned.org
 nedporno.com
 nee.mrslove.com
 negrisuperdotati.net
@@ -16319,6 +16334,7 @@ nsfwyoutube.com
 nshens.com
 nst.web.id
 nstagram.com
+nstc.org.tw
 nt.app
 ntd.com
 ntd.tv
@@ -17515,6 +17531,7 @@ pokerstars.com
 pokerstars.net
 poketube.fun
 poklw.com
+poland.tw
 polar-wildwood-5658.herokuapp.com
 polarzero.net
 polcompball.wiki
@@ -18277,6 +18294,7 @@ qimila.link
 qinav.com
 qingchengjisu.com
 qingrense.xyz
+qingse.one
 qingwo.vip
 qingyangmovie.be
 qingyun.io
@@ -18919,6 +18937,7 @@ rockettube.com
 rocketvpn.net
 rockitcoin.com
 rocksdb.org
+rocmgov.org
 rod9.cleansite.us
 rogoff.xyz
 rogueelevator.com
@@ -21268,6 +21287,7 @@ textnow.me
 tf18.com
 tf1info.fr
 tfc-taiwan.org.tw
+tfd.org.tw
 tfhub.dev
 tfiflve.com
 tfino.com
@@ -22128,6 +22148,7 @@ tt27.tv
 tt3911.com
 ttc.com
 ttkkttkk.com
+ttl.com.tw
 ttmeiju.com
 ttofchina.com
 ttshow.tw
@@ -22365,6 +22386,7 @@ twelvetribes.com
 twelveweb.com
 twerkingbutt.com
 twerkqueens.com
+twfhcsec.com.tw
 twftp.org
 twg.kakaocdn.net
 twgov.tw
@@ -22459,6 +22481,7 @@ txt99.com
 txtxi.com
 txxx.com
 tyb.org.tr
+tybio.com.tw
 tybito.com
 tyc3337.com
 tycool.com
@@ -23416,6 +23439,7 @@ vrsmash.com
 vs-cmaf-pushb-uk.live.fastly.md.bbci.co.uk
 vs8989.com
 vs9933.com
+vscc.org.tw
 vtje.org
 vtmarkets.com
 vtrspeed.com
@@ -29187,6 +29211,7 @@ xx-net.com
 xx.dnssite.xyz
 xx.domain888.pw
 xx.freepac.pw
+xx.net
 xx3641.com
 xx656.net
 xx7411.com
