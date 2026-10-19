@@ -1159,6 +1159,7 @@
 7mmtv.tv
 7mvq.82.flnet.org
 7torrents.cc
+7x24hrs.com
 7xx8.com
 7zip-es.updatestar.com
 7zip-vi.updatestar.com
@@ -14793,7 +14794,9 @@ messenger.providesupport.com
 messytube.com
 mesu-cdn.apple.com.akadns.net
 mesu-china.apple.com.akadns.net
+meta.ai
 meta.com
+metaaivm.com
 metafilter.com
 metalbondnyc.com
 metalhead.club
